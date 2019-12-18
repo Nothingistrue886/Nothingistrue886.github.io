@@ -8,7 +8,7 @@ menu: 关于
 permalink: /about/
 ---
 
-Maybe sometimes good come from bad.
+No one could ever replace you.
 
 ## 联系方式
 

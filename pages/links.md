@@ -8,7 +8,7 @@ menu: 链接
 permalink: /links/
 ---
 
-God made relatives. Thank God we can choose our friends.
+Maybe sometimes good come from bad.
 
 {% for link in site.data.links %}
 * [{{ link.name }}]({{ link.url }}){:target="_blank"}

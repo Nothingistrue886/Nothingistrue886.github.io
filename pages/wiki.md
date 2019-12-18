@@ -8,7 +8,7 @@ menu: 维基
 permalink: /wiki/
 ---
 
-知识的岛屿越大，无知的海岸线越长
+The world awaits our discovery.
 
 <ul class="listing">
 {% for wiki in site.wiki %}
