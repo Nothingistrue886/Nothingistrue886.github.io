@@ -2,13 +2,13 @@
 layout: page
 title: About me
 description: 
-keywords: sunbufu
+keywords: cuizuofei
 comments: true
 menu: 关于
 permalink: /about/
 ---
 
-Life is great and everything will be OK.
+Maybe sometimes good come from bad.
 
 ## 联系方式
 
