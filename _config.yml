@@ -2,25 +2,25 @@
 #   Main Configs   #
 # ---------------- #
 baseurl:
-url: https://www.sunbufu.club
+url: https://nothingistrue886.github.io
 date_format: "ordinal"
-title: 孙不服的博客
-subtitle: "Life is great and everything will be OK."
-description: "孙不服的博客"
-keywords: 孙不服的博客, sunbufu
-timezone: Asia/Shanghai
+title: 崔作非的博客
+subtitle: "Only the toughest grass can stand strong winds."
+description: "疾风劲草"
+keywords: 崔作非的博客, Nothingisture886
+timezone: Asia/China
 encoding: "utf-8"
 side_bar_repo_limit: 5
 
 # ---------------- #
 #      Author      #
 # ---------------- #
-author: sunbufu
-organization: 瓜子
-organization_url: http://www.guazi.com
-github_username: sunbufu
+author: cuizuofei
+organization: bilibili
+organization_url: https://www.bilibili.com/
+github_username: Nothingistrue886
 location: Beijing, China
-email: sunyoubufu@163.com
+email: czff886@163.com
 
 # ---------------- #
 #    Navigation    #
@@ -81,7 +81,7 @@ collections:
     output: true
     permalink: /wiki/:path/
 
-repository: sunbufu/sunbufu.github.io
+repository: Nothingistrue886/Nothingistrue886.github.io
 
 # ---------------- #
 #      Comments    #
@@ -102,10 +102,10 @@ comments_provider: gitalk
 #        client_secret: c8f83aea051671a33b02a9581678b75aa59cf2b6
 # https://github.com/gitalk/gitalk#install
 gitalk:
-  owner: sunbufu
-  repo: blog-comments
-  clientID: 59e22883393cb32a3b96
-  clientSecret: bb45d9edf67b30ad811bcabe74ff53ea1f3bb03a
+  owner: Nothingistrue886
+  repo: Blog-comments
+  clientID: 9198a918cf5c2e490613
+  clientSecret: 799277616fb7a55bc3341ef73cff9f4243ce6db8
 # 在使用其它评论组件时可点击显示 Disqus
 lazy_load_disqus : false
 
@@ -124,4 +124,4 @@ simple_jekyll_search:
 #google:
 #    analytics_id: UA-80669434-1
 baidu:
-  analytics_id: f3c45aa73d5475ac1af92f29b0912e09
+  analytics_id: b7deae4b1e8f8b14492c038986dc8c7b
