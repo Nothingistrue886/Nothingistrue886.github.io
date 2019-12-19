@@ -1,4 +1,4 @@
-个人博客：<https://sunbufu.github.io>
+个人博客：<https://Nothingistrue886.github.io>
 
 forked from <https://github.com/mzlogin/mzlogin.github.io>
 
