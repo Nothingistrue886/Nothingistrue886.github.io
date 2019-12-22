@@ -1,8 +1,20 @@
+---
+layout: post
+title: Bubble sort
+categories: [Algorithm, Sort]
+description: 冒泡排序
+keywords: 算法, 排序
+---
+
+
+
 # 一.冒泡排序介绍
 
 冒泡排序是我们得最多的排序方式之一，原因是简单易实现，且原理易懂。顾名思义，冒泡排序，它的排序过程就像水中的气泡一样，一个一个上浮到水面。
 
-![BubbleSort](D:\Git Repository\Nothingistrue886.github.io\images\2018\06\06\bubble-sort\BubbleSort.gif)
+![BubbleSort]({{ site.url }}/images{{ page.url }}/BubbleSort.gif)
+
+
 
 # 二.冒泡排序原理分析
 
