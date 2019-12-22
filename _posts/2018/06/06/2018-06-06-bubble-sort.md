@@ -22,7 +22,7 @@ keywords: 算法, 排序
 
 # 三.冒泡排序代码实现
 
-```
+```java
 public class BubbleSort {
     
     static int[] array = {3,2,4,1,5,0};
@@ -66,7 +66,7 @@ public class BubbleSort {
 
 1 .观察上述代码和运行结果，我们可以发现，当第一轮结束后，最后一个数字一定是数组中最大的元素，那么我们在进行第二趟的两两比较时，实际上是没有必要再对第5个和第6个进行比较的。那么我们可以修改代码如下：
 
-```
+```java
 public static void BubbleSort(int[] a) 
 {
     //外层循环，是需要进行比较的轮数，一共进行5次即可
@@ -104,7 +104,7 @@ public static void BubbleSort(int[] a)
 
 这里可以想到，当某一轮的两两比较中，如果都没有发生数组元素的互换，那么其实排序工作已经完成了，所以我们可以考虑在程序中加入一个flag，默认为false，含义是该轮比较中是否发生了元素互换，当程序中执行到元素互换时，将该flag置为true，当该轮比较结束时，若flag为flase，则说明该轮比较未发生元素互换，那么排序完成，若flag为true，说明本轮比较仍然有元素互换，需要继续进行下轮排序。代码实现如下：
 
-```
+```java
 public class BubbleSort {
     
     static int[] array = {1,2,0,3,5,4};
