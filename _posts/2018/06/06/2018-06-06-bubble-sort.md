@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Bubble sort
+title: 冒泡排序的Java实现
 categories: [Algorithm, Sort]
 description: 冒泡排序
 keywords: 算法, 排序
@@ -18,7 +18,7 @@ keywords: 算法, 排序
 
 # 二.冒泡排序原理分析
 
-![](D:\Git Repository\Nothingistrue886.github.io\images\2018\06\06\bubble-sort\冒泡排序原理.png)
+![冒牌排序原理]({{ site.url }}/images{{ page.url }}/冒泡排序原理.png)
 
 # 三.冒泡排序代码实现
 
