@@ -165,3 +165,10 @@ public class BubbleSort {
 
 **综上所述，冒泡排序的时间复杂度为：O(n²)**
 
+---
+
+转载
+
+作者：JavaPanda	
+
+链接：https://www.cnblogs.com/LearnAndGet/p/10237399.html
