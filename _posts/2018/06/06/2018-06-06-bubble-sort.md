@@ -169,9 +169,7 @@ public class BubbleSort {
 
 ---
 
-```
-转载
-作者：JavaPanda	
-链接：https://www.cnblogs.com/LearnAndGet/p/10237399.html
-```
+> 转载
+> 作者：JavaPanda	
+> 链接：https://www.cnblogs.com/LearnAndGet/p/10237399.html
 
