@@ -15,7 +15,7 @@ keywords: 设计模式, 单例模式
 
 **单例模式的要点有三个:** 
 
-1. 是某个类只能有一个实例；
+1. 某个类只能有一个实例；
 
 2. 它必须自行创建这个实例； 
 
@@ -23,7 +23,7 @@ keywords: 设计模式, 单例模式
 
 **从具体实现角度来说，就是以下三点：**
 
-1. 将该类的构造函数私有化；
+1. 该类的构造函数私有化；
 
 2. 该类定义中含有一个该类的静态私有对象； 
 
@@ -88,7 +88,6 @@ public class SingletonLock {
     private static volatile SingletonLock instance = null;
 
     private SingletonLock() {
-
     }
 
     public static SingletonLock getInstance() {
