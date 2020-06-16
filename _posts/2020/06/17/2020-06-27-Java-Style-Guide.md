@@ -131,7 +131,7 @@ static final String[] nonEmptyArray = {"these", "can", "change"};
 
 ---
 
-```java
+```
 参考文献
 《码出高效》和《Java开发手册》
 https://google.github.io/styleguide/javaguide.html
