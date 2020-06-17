@@ -30,7 +30,7 @@ keywords: Java,  编程规约
 
 **类名**
 
-类名以大驼峰命名法([UpperCamelCase](#驼峰式命名法(CamelCase))) 风格编写。
+类名以大驼峰命名法([UpperCamelCase](#驼峰式命名法CamelCase)) 风格编写。
 
 类名通常是名词或名词短语。 例如， `Character`或 `ImmutableList`。接口名称也可以是名词或名词短语（例如`List`），但有时也可以是形容词或形容词短语（例如 `Readable`）。 
 
@@ -40,7 +40,7 @@ keywords: Java,  编程规约
 
 **方法名**
 
-类名以小驼峰命名法([lowerCamelCase](#驼峰式命名法(CamelCase))) 风格编写。
+类名以小驼峰命名法([lowerCamelCase](#驼峰式命名法CamelCase)) 风格编写。
 
 方法名通常是动词或动词短语。 For example, `sendMessage` or `stop`. 
 
@@ -106,7 +106,7 @@ static final String[] nonEmptyArray = {"these", "can", "change"};
 | 变量名 | 首字母小写，多个单词组成时，其他单词首字母都要大写 |              password, userName               |
 
 
-# 驼峰式命名法(CamelCase)
+# 驼峰式命名法CamelCase
 
 **驼峰式命名法**分大驼峰式命名法(UpperCamelCase)和小驼峰式命名法(lowerCamelCase)。 有时，我们有不只一种合理的方式将一个英语词组转换成驼峰形式，如缩略语或不寻常的结构(例如”IPv6”或”iOS”)。Google指定了以下的转换方案。
 
