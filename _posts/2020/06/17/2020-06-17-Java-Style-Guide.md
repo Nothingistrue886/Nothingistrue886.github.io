@@ -30,7 +30,7 @@ keywords: Java,  编程规约
 
 **类名**
 
-类名以大驼峰命名法([UpperCamelCase](#驼峰式命名法CamelCase)) 风格编写。
+类名以大驼峰命名法[UpperCamelCase](#驼峰式命名法CamelCase)风格编写。
 
 类名通常是名词或名词短语。 例如， `Character`或 `ImmutableList`。接口名称也可以是名词或名词短语（例如`List`），但有时也可以是形容词或形容词短语（例如 `Readable`）。 
 
@@ -40,7 +40,7 @@ keywords: Java,  编程规约
 
 **方法名**
 
-类名以小驼峰命名法([lowerCamelCase](#驼峰式命名法CamelCase)) 风格编写。
+类名以小驼峰命名法[lowerCamelCase](#驼峰式命名法CamelCase) 风格编写。
 
 方法名通常是动词或动词短语。 For example, `sendMessage` or `stop`. 
 
