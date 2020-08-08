@@ -38,12 +38,13 @@ keywords: 设计模式, 单例模式
  * 因为一开始就初始化，避免了线程同步问题。
  */
 public class SingletonEH {
-    private static SingletonEH instance = new SingletonEH();    // 私有的静态对象，防止外界引用
-
-    private SingletonEH() {                                     // 构造方法私有化，防止外界实例化此对象
+    // 私有的静态对象，防止外界引用
+    private static SingletonEH instance = new SingletonEH();    
+	// 构造方法私有化，防止外界实例化此对象
+    private SingletonEH() {                                     
     }
-
-    public static SingletonEH getInstance() {                    // 向外界提供获取实例化对象的静态方法
+	// 向外界提供获取实例化对象的静态方法
+    public static SingletonEH getInstance() {                    
         return instance;
     }                                       
 }
@@ -58,7 +59,8 @@ public class SingletonEH {
  * 多线程下会出现不唯一对象，可以在静态方法中加 synchronized 关键字
  */
 public class SingletonLH {
-    private static SingletonLH instance = null;     // 此处赋值为null，目的是实现延迟加载Lazy Loading
+    // 此处赋值为null，目的是实现延迟加载Lazy Loading
+    private static SingletonLH instance = null;     
 
     private SingletonLH() {
     }
@@ -91,10 +93,13 @@ public class SingletonLock {
     }
 
     public static SingletonLock getInstance() {
-        if (instance == null) {                             // 先判断实例对象是否存在，不存在则进入同步锁创建
-            synchronized (SingletonLock.class) {            // 多线程下只有一个线程可以进入同步锁，实例化代码只用执行一次，后面再次访问时，判断第一个if (singleton == null)，直接return实例化对象。
+        // 先判断实例对象是否存在，不存在则进入同步锁创建
+        if (instance == null) {        
+            // 多线程下只有一个线程可以进入同步锁，实例化代码只用执行一次，后面再次访问时，判断第一个if (singleton == null)，直接return实例化对象。
+            synchronized (SingletonLock.class) {            
                 if (instance == null) {
-                    instance = new SingletonLock();         // 对象的创建在JVM中可能会进行重排序，在多线程访问下存在风险，使用volatile修饰instance实例变量
+                    // 对象的创建在JVM中可能会进行重排序，在多线程访问下存在风险，使用volatile修饰instance实例变量
+                    instance = new SingletonLock();         
                 }
             }
         }
@@ -137,7 +142,7 @@ public class SingletonJT {
 public enum SingletonEnum {
     INSTANCE;
 
-    //可以省略此方法，通过Singleton.INSTANCE进行操作
+    // 可以省略此方法，通过Singleton.INSTANCE进行操作
     public static SingletonEnum getInstance() {
         return SingletonEnum.INSTANCE;
     }
