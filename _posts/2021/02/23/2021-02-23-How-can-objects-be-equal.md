@@ -2,9 +2,11 @@
 layout: post
 title: Java Style Guide
 categories: [Java, Java SE]
-description: 无规矩不成方圆，无规范难以协同
+description: hashcode和equals
 keywords: Java,  hashcode, equals
 ---
+
+
 
 # 对象要怎样才算相等？
 
@@ -29,8 +31,6 @@ if(foo == bar) {
 	// 两个引用都指向同一个对象
 }
 ```
-
-
 
 ## 对象相等性
 
@@ -67,25 +67,16 @@ if(foo.hashcode() == bar.hashcode() && foo.equals(bar)) {
 
 **注意：**
 
-`==`
+| 表达式    | 描述                                                       |
+| :-------- | :--------------------------------------------------------- |
+| `==`      | 基本数据类型比较的是值,引用比较的是对象内存地址            |
+| `equals`  | Object类中比较的是对象内存地址,可以重写equals()方法        |
+| `hascode` | 返回每个对象特有的序号，依据内存位置计算(哈希冲突不可避免) |
 
-基本数据类型比较的是值
+---
 
-引用比较的是对象内存地址
-
-`equals`
-
-Object类中比较的是对象内存地址
-
-可以重写equals()方法
-
-`hascode`
-
-返回每个对象特有的序号，依据内存位置计算(哈希冲突不可避免)
-
->参考文献
->
->《HeadFirst Java》
->
->《码出高效》
-
+```java
+参考文献
+《HeadFirst Java》
+《码出高效》
+```
