@@ -42,7 +42,7 @@ if(foo == bar) {
 
 ![对象相等]({{ site.url }}/images{{ page.url }}/对象相等.jpg)
 
-```
+```java
 if(foo.hashcode() == bar.hashcode() && foo.equals(bar)) {
 // 两个对象是相等的
 }
