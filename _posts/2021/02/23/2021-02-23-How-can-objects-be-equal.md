@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Java Style Guide
+title: 对象要怎样才算相等？
 categories: [Java, Java SE]
 description: hashcode和equals
 keywords: Java,  hashcode, equals
@@ -28,7 +28,7 @@ keywords: Java,  hashcode, equals
 
 ```java
 if(foo == bar) {
-	// 两个引用都指向同一个对象
+// 两个引用都指向同一个对象
 }
 ```
 
@@ -44,7 +44,7 @@ if(foo == bar) {
 
 ```
 if(foo.hashcode() == bar.hashcode() && foo.equals(bar)) {
-	// 两个对象是相等的
+// 两个对象是相等的
 }
 ```
 
