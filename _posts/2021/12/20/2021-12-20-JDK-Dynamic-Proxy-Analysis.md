@@ -1,14 +1,10 @@
 ---
 layout: post
-title: 对象要怎样才算相等？
+title: JDK动态代理源码分析
 categories: [Java, Design pattern]
 description: Design pattern
 keywords: Java,  Design pattern
 ---
-
-
-
-# JDK动态代理源码分析
 
 先抛出一个问题，JDK的动态代理为什么不支持对实现类的代理，只支持接口的代理？？？
 
@@ -384,7 +380,7 @@ public static byte[] generateProxyClass(final String var0, Class<?>[] var1, int 
 System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
 ```
 
-![$Proxy0.class]({{ site.url }}/images{{ page.url }}/$Proxy0.class.jpg)
+![Proxy0]({{ site.url }}/images{{ page.url }}/Proxy0.jpg)
 
  反编译$Proxy0.class
 
