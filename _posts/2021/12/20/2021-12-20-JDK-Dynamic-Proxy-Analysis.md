@@ -8,13 +8,15 @@ keywords: Java,  Design pattern
 
 先抛出一个问题，JDK的动态代理为什么不支持对实现类的代理，只支持接口的代理？？？
 
-首先来看一下如何使用JDK动态代理。
-
-JDK提供了[Java](http://link.zhihu.com/?target=http%3A//lib.csdn.net/base/java).lang.reflect.Proxy类来实现动态代理的，可通过它的newProxyInstance来获得代理实现类。
-
-同时对于代理的接口的实际处理，是一个java.lang.reflect.InvocationHandler，它提供了一个invoke方法供实现者提供相应的代理逻辑的实现。
+>首先来看一下如何使用JDK动态代理。
+>
+>JDK提供了[Java](http://link.zhihu.com/?target=http%3A//lib.csdn.net/base/java).lang.reflect.Proxy类来实现动态代理的，可通过它的newProxyInstance来获得代理实现类。
+>
+>同时对于代理的接口的实际处理，是一个java.lang.reflect.InvocationHandler，它提供了一个invoke方法供实现者提供相应的代理逻辑的实现
 
 下面实现一个jdk动态代理的例子：
+
+
 
 ## 1.编写一个被代理的接口HelloService
 
@@ -34,8 +36,6 @@ public interface HelloService {
 
 ## 2.HelloServiceImpl实现接口HelloService
 
-
-
 ```java
 package com.czff.study.designmodel.proxy;
 
@@ -53,8 +53,6 @@ public class HelloServiceImpl implements HelloService {
 ```
 
 ## 3.JDK的动态代码需要实现InvocationHandler
-
-
 
 ```java
 package com.czff.study.designmodel.proxy;
