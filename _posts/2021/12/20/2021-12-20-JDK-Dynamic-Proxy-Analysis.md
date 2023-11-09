@@ -32,7 +32,9 @@ public interface HelloService {
 }
 ```
 
- ## 2.HelloServiceImpl实现接口HelloService
+## 2.HelloServiceImpl实现接口HelloService
+
+
 
 ```java
 package com.czff.study.designmodel.proxy;
@@ -50,7 +52,9 @@ public class HelloServiceImpl implements HelloService {
 }
 ```
 
- ## 3.JDK的动态代码需要实现InvocationHandler
+## 3.JDK的动态代码需要实现InvocationHandler
+
+
 
 ```java
 package com.czff.study.designmodel.proxy;
@@ -90,7 +94,7 @@ public class JdkDynamicProxyHandler implements InvocationHandler {
 
 ```
 
- ## 4.编写一个测试类ProxyMainTest
+## 4.编写一个测试类ProxyMainTest
 
 ```java
 package com.czff.study.designmodel.proxy;
