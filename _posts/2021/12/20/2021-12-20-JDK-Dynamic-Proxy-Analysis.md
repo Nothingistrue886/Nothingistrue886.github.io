@@ -16,8 +16,6 @@ keywords: Java,  Design pattern
 
 下面实现一个jdk动态代理的例子：
 
-
-
 ## 1.编写一个被代理的接口HelloService
 
 ```java
