@@ -16,7 +16,7 @@ JDK提供了[Java](http://link.zhihu.com/?target=http%3A//lib.csdn.net/base/java
 
 下面实现一个jdk动态代理的例子：
 
-1.被代理的接口，编写一个接口HelloService
+## 1.编写一个被代理的接口HelloService
 
 ```java
 package com.czff.study.designmodel.proxy;
@@ -32,7 +32,7 @@ public interface HelloService {
 }
 ```
 
- 2.HelloServiceImpl实现接口HelloService
+ ## 2.HelloServiceImpl实现接口HelloService
 
 ```java
 package com.czff.study.designmodel.proxy;
@@ -50,7 +50,7 @@ public class HelloServiceImpl implements HelloService {
 }
 ```
 
- 3.JDK的动态代码需要实现InvocationHandler
+ ## 3.JDK的动态代码需要实现InvocationHandler
 
 ```java
 package com.czff.study.designmodel.proxy;
@@ -90,7 +90,7 @@ public class JdkDynamicProxyHandler implements InvocationHandler {
 
 ```
 
- 4.编写一个测试类ProxyMainTest
+ ## 4.编写一个测试类ProxyMainTest
 
 ```java
 package com.czff.study.designmodel.proxy;
@@ -124,7 +124,7 @@ public class ProxyMainTest {
 }
 ```
 
-5.运行测试类
+## 5.运行测试类
 
 ```java
 true
@@ -142,7 +142,7 @@ end Proxy
 Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), target.getClass().getInterfaces(), this);
 ```
 
- 查看Proxy.newProxyInstance源码：（JDK版本为jdk1.8.0_192） 
+## 6.查看Proxy.newProxyInstance源码：（JDK版本为jdk1.8.0_192） 
 
 ```java
 @CallerSensitive
@@ -382,7 +382,7 @@ System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true")
 
 ![Proxy0]({{ site.url }}/images{{ page.url }}/Proxy0.jpg)
 
- 反编译$Proxy0.class
+## 7.反编译$Proxy0.class
 
 ```java
 //
@@ -463,6 +463,8 @@ public final class $Proxy0 extends Proxy implements HelloService {
 }
 
 ```
+
+## 总结
 
 可以看到，动态生成的代理类有如下特性：
 
