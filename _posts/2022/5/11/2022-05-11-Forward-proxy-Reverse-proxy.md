@@ -60,7 +60,7 @@ Nginx应该是最常见的[反向代理服务器](https://www.zhihu.com/search?q
 
 在网络架构的工程实践上，如果一个私有网络想要访问其他网络的资源，那么一般需要给私有网络加上一个正向代理(Proxy)。如果一个私有网络想要被其他网络访问，那么一般需要给私有网络加上一个反向代理(Reverse Proxy)，或者API Gateway(本身也可以算作一种Reverse Proxy)。
 
-![PrivateNetwork - Proxy - PublicNetwork | PublicNetwork - ReverseProxy - PrivateNetwork]({{ site.url }}/images{{ page.url }}/public-private.png) 
+![PrivateNetwork - Proxy - PublicNetwork || PublicNetwork - ReverseProxy - PrivateNetwork]({{ site.url }}/images{{ page.url }}/public-private.png) 
 
 ```
 参考
