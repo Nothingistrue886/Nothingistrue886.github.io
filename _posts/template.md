@@ -19,3 +19,5 @@ Content here
 《》、《》
 ```
 
+![Nginx 502 Bad Gateway]({{ site.url }}/images{{ page.url }}/502.png) 
+

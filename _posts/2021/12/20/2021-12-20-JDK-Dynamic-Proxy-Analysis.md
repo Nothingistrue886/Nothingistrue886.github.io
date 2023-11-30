@@ -1,9 +1,9 @@
 ---
 layout: post
 title: JDK动态代理源码分析
-categories: [Java, Design pattern]
-description: Design pattern
-keywords: Java,  Design pattern
+categories: [Java, Design Patterns]
+description: Design Patterns
+keywords: Java,  Design Patterns
 ---
 
 先抛出一个问题，JDK的动态代理为什么不支持对实现类的代理，只支持接口的代理？？？

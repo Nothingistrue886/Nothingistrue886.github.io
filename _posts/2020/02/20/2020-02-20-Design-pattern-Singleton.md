@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 设计模式-单例模式
-categories: [Design pattern]
+categories: [Design Patterns]
 description: 一种常用的软件设计模式
 keywords: 设计模式, 单例模式
 
