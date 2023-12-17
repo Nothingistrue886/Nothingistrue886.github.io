@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 设计模式-策略模式
-categories: [Design Pattern]
+categories: [Design Patterns]
 description: 一种常用的软件设计模式
 keywords: 设计模式, 策略模式
 ---
