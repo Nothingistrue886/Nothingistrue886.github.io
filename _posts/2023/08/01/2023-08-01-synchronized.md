@@ -1,0 +1,225 @@
+---
+layout: post
+title: synchronized有几种用法？
+categories: [Java, Java SE]
+description: synchronized
+keywords: synchronized
+---
+
+在 Java 语言中，保证线程安全性的主要手段是加锁，而 Java 中的锁主要有两种：synchronized 和 Lock，我们今天重点来看一下 synchronized 的几种用法。 
+
+## 用法简介
+
+使用 synchronized 无需手动执行加锁和释放锁的操作，我们只需要声明 synchronized 关键字就可以了，JVM 层面会帮我们自动的进行加锁和释放锁的操作。
+synchronized 可用于修饰**普通方法、静态方法和代码块**，接下来我们分别来看。
+
+## 1、修饰普通方法
+
+synchronized 修饰普通方法的用法如下：
+
+```java
+/**
+ * synchronized 修饰普通方法
+ */
+public synchronized void method() {
+    // ....
+}
+```
+
+当 synchronized 修饰普通方法时，被修饰的方法被称为同步方法，其作用范围是整个方法，作用的对象是调用这个方法的对象。 
+
+## 2、修饰静态方法
+
+synchronized 修饰静态方法和修饰普通方法类似，它的用法如下：
+
+```java
+/**
+ * synchronized 修饰静态方法
+ */
+public static synchronized void staticMethod() {
+    // .......
+}
+```
+
+当 synchronized 修饰静态方法时，其作用范围是整个程序，这个锁对于所有调用这个锁的对象都是互斥的。
+
+> 所谓的互斥，指的是同一时间只能有一个线程能使用，其他线程只能排队等待。
+
+### 修饰普通方法 VS 修饰静态方法
+
+synchronized 修饰普通方法和静态方法看似相同，但二者完全不同，**对于静态方法来说 synchronized 加锁是全局的，也就是整个程序运行期间，所有调用这个静态方法的对象都是互斥的，而普通方法是针对对象级别的，不同的对象对应着不同的锁**，比如以下代码，同样是调用两次方法，但锁的获取完全不同，实现代码如下：
+
+```java
+import java.time.LocalDateTime;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class SynchronizedUsage {
+    public static void main(String[] args) throws InterruptedException {
+        // 创建线程池同时执行任务
+        ExecutorService threadPool = Executors.newFixedThreadPool(10);
+
+        // 执行两次静态方法
+        threadPool.execute(() -> {
+            staticMethod();
+        });
+        threadPool.execute(() -> {
+            staticMethod();
+        });
+        
+        // 执行两次普通方法
+        threadPool.execute(() -> {
+            SynchronizedUsage usage = new SynchronizedUsage();
+            usage.method();
+        });
+        threadPool.execute(() -> {
+            SynchronizedUsage usage2 = new SynchronizedUsage();
+            usage2.method();
+        });
+    }
+
+    /**
+     * synchronized 修饰普通方法
+     * 本方法的执行需要 3s（因为有 3s 的休眠时间）
+     */
+    public synchronized void method() {
+        System.out.println("普通方法执行时间：" + LocalDateTime.now());
+        try {
+            // 休眠 3s
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * synchronized 修饰静态方法
+     * 本方法的执行需要 3s（因为有 3s 的休眠时间）
+     */
+    public static synchronized void staticMethod() {
+        System.out.println("静态方法执行时间：" + LocalDateTime.now());
+        try {
+            // 休眠 3s
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+以上程序的执行结果如下： 
+
+![test1]({{ site.url }}/images{{ page.url }}/synchronized1.png) 
+
+从上述结果可以看出，**静态方法加锁是全局的，针对的是所有调用者；而普通方法加锁是对象级别的，不同的对象拥有的锁也不同。** 
+
+## 3、修饰代码块
+
+我们在日常开发中，最常用的是给代码块加锁，而不是给方法加锁，因为给方法加锁，相当于给整个方法全部加锁，这样的话锁的粒度就太大了，程序的执行性能就会受到影响，所以通常情况下，我们会使用 synchronized 给代码块加锁，它的实现语法如下：
+
+```java
+public void classMethod() throws InterruptedException {
+    // 前置代码...
+    
+    // 加锁代码
+    synchronized (SynchronizedUsage.class) {
+        // ......
+    }
+    
+    // 后置代码...
+}
+```
+
+从上述代码我们可以看出，相比于修饰方法，修饰代码块需要自己手动指定加锁对象，加锁的对象通常使用 this 或 xxx.class 这样的形式来表示，比如以下代码：
+
+```java
+// 加锁某个类
+synchronized (SynchronizedUsage.class) {
+    // ......
+}
+
+// 加锁当前类对象
+synchronized (this) {
+    // ......
+}
+```
+
+### this VS class
+
+使用 synchronized 加锁 this 和 xxx.class 是完全不同的，当加锁 this 时，表示用当前的对象进行加锁，每个对象都对应了一把锁；而当使用 xxx.class 加锁时，表示使用某个类（而非类实例）来加锁，它是应用程序级别的，是全局生效的，如以下代码所示：
+
+```java
+import java.time.LocalDateTime;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class SynchronizedUsageBlock {
+    public static void main(String[] args) throws InterruptedException {
+        // 创建线程池同时执行任务
+        ExecutorService threadPool = Executors.newFixedThreadPool(10);
+
+        // 执行两次 synchronized(this)
+        threadPool.execute(() -> {
+            SynchronizedUsageBlock usage = new SynchronizedUsageBlock();
+            usage.thisMethod();
+        });
+        threadPool.execute(() -> {
+            SynchronizedUsageBlock usage2 = new SynchronizedUsageBlock();
+            usage2.thisMethod();
+        });
+
+        // 执行两次 synchronized(xxx.class)
+        threadPool.execute(() -> {
+            SynchronizedUsageBlock usage3 = new SynchronizedUsageBlock();
+            usage3.classMethod();
+        });
+        threadPool.execute(() -> {
+            SynchronizedUsageBlock usage4 = new SynchronizedUsageBlock();
+            usage4.classMethod();
+        });
+    }
+
+    /**
+     * synchronized(this) 加锁
+     * 本方法的执行需要 3s（因为有 3s 的休眠时间）
+     */
+    public void thisMethod() {
+        synchronized (this) {
+            System.out.println("synchronized(this) 加锁：" + LocalDateTime.now());
+            try {
+                // 休眠 3s
+                TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * synchronized(xxx.class) 加锁
+     * 本方法的执行需要 3s（因为有 3s 的休眠时间）
+     */
+    public void classMethod() {
+        synchronized (SynchronizedUsageBlock.class) {
+            System.out.println("synchronized(xxx.class) 加锁：" + LocalDateTime.now());
+            try {
+                // 休眠 3s
+                TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+```
+
+以上程序的执行结果如下：
+
+![test2]({{ site.url }}/images{{ page.url }}/synchronized2.png) 
+
+## 总结
+
+synchronized 用 3 种用法，用它可以来修饰普通方法、静态方法和代码块，其中最常用的是修饰代码块，而修饰代码块时需要指定一个加锁对象，这个加锁对象通常使用 this 或 xxx.class 来表示，当使用 this 时，表示使用当前对象来加锁，而使用 class 时，表示表示使用某个类（非类对象实例）来加锁，它是全局生效的。
