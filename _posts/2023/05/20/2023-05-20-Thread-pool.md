@@ -160,8 +160,8 @@ public ThreadPoolExecutor(int corePoolSize,
 
 构造方法中的字段含义如下：
 
-- **corePoolSize**：核心线程数量;
-- **maximumPoolSize**：最大线程数量；
+- **corePoolSize**：核心线程数量（当前任务执行结束后，不会被销毁）;
+- **maximumPoolSize**：最大线程数量（代表当前线程池中，一共可以有多少个工作线程）；
 - **workQueue**：阻塞队列，当任务提交时，如果线程池中的线程数量大于等于corePoolSize的时候，把该任务封装成一个Worker对象放入等待队列；
 - **keepAliveTime**：表示线程池中线程允许的空闲时间。当线程池中的线程数量大于corePoolSize的时候，如果这时没有新的任务提交，核心线程外的线程不会立即销毁，而是会等待，直到等待的时间超过了keepAliveTime；
 - **TimeUnit**：表示时间单位，keepAliveTime的时间单位通常是TimeUnit.SECONDS。
