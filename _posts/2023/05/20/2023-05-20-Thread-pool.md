@@ -71,7 +71,7 @@ ThreadPoolExecutor是如何运行，如何同时维护线程和执行任务的�
 2. 线程池如何管理任务。
 3. 线程池如何管理线程。
 
-# 生命周期管理
+# 1.生命周期管理
 
 线程池运行的状态，并不是用户显式设置的，而是伴随着线程池的运行，由内部来维护。线程池内部使用一个变量维护两个值：运行状态(runState)和线程数量 (workerCount)。在具体实现中，线程池将运行状态(runState)、线程数量 (workerCount)两个关键参数的维护放在了一起，如下代码所示： 
 
@@ -127,11 +127,12 @@ private static int ctlOf(int rs, int wc) { return rs | wc; }		// 通过状态和
 
 ![线程池状态转换]({{ site.url }}/images{{ page.url }}/Lifecycle.png) 
 
-# 任务执行机制
+# 2.任务执行机制
 
 首先，了解一下ThreadPoolExecutor的构造方法：
 
 ```java
+// 有参构造。无论调用哪个有参构造，最终都会执行当前的有参构造
 public ThreadPoolExecutor(int corePoolSize,
                           int maximumPoolSize,
                           long keepAliveTime,
@@ -139,16 +140,24 @@ public ThreadPoolExecutor(int corePoolSize,
                           BlockingQueue<Runnable> workQueue,
                           ThreadFactory threadFactory,
                           RejectedExecutionHandler handler) {
+    // 健壮性校验
+    // 核心线程个数是允许为0个的。
+    // 最大线程数必须大于0，最大线程数要大于等于核心线程数
+    // 非核心线程的最大空闲时间，可以等于0
     if (corePoolSize < 0 ||
-            maximumPoolSize <= 0 ||
-            maximumPoolSize < corePoolSize ||
-            keepAliveTime < 0)
+        maximumPoolSize <= 0 ||
+        maximumPoolSize < corePoolSize ||
+        keepAliveTime < 0)
+        // 不满足要求就抛出参数异常
         throw new IllegalArgumentException();
+    // 阻塞队列，线程工厂，拒绝策略都不允许为null，为null就扔空指针异常
     if (workQueue == null || threadFactory == null || handler == null)
         throw new NullPointerException();
-    this.acc = System.getSecurityManager() == null ?
-            null :
-            AccessController.getContext();
+    // 不要关注当前内容，系统资源访问决策，和线程池核心业务关系不大。
+    this.acc = System.getSecurityManager() == null ? null : AccessController.getContext();
+    // 各种赋值，JUC包下，几乎所有涉及到线程挂起的操作，单位都用纳秒。
+    // 有参构造的值，都赋值给成员变量。
+    // Doug Lea的习惯就是将成员变量作为局部变量单独操作。
     this.corePoolSize = corePoolSize;
     this.maximumPoolSize = maximumPoolSize;
     this.workQueue = workQueue;
@@ -168,84 +177,62 @@ public ThreadPoolExecutor(int corePoolSize,
 - **threadFactory**：它是ThreadFactory类型的变量，用来创建新线程。默认使用Executors.defaultThreadFactory() 来创建线程。使用默认的ThreadFactory来创建线程时，会使新创建的线程具有相同的NORM_PRIORITY优先级并且是非守护线程，同时也设置了线程的名称。
 - **handler**：它是RejectedExecutionHandler类型的变量，表示线程池的饱和策略。当队列和线程池都满了，说明线程池处于饱和状态。这时如果继续提交任务，就需要采取一种策略处理该任务。
 
-## 任务调度 
+## 2.1任务调度 
 
 任务调度是线程池的主要入口，当用户提交了一个任务，接下来这个任务将如何执行都是由这个阶段决定的。了解这部分就相当于了解了线程池的核心运行机制。 
 
 所有任务的调度都是由execute方法完成的，这部分完成的工作是：检查现在线程池的运行状态、运行线程数、运行策略，决定接下来执行的流程，是直接申请线程执行，或是缓冲到队列中执行，亦或是直接拒绝该任务。
 
+### ThreadPoolExecutor的execute方法
+
 ```java
+// 提交任务到线程池的核心方法
+// command就是提交过来的任务
 public void execute(Runnable command) {
+    // 提交的任务不能为null
     if (command == null)
         throw new NullPointerException();
-    /*
-     * Proceed in 3 steps:
-     *
-     * 1. If fewer than corePoolSize threads are running, try to
-     * start a new thread with the given command as its first
-     * task.  The call to addWorker atomically checks runState and
-     * workerCount, and so prevents false alarms that would add
-     * threads when it shouldn't, by returning false.
-     *
-     * 2. If a task can be successfully queued, then we still need
-     * to double-check whether we should have added a thread
-     * (because existing ones died since last checking) or that
-     * the pool shut down since entry into this method. So we
-     * recheck state and if necessary roll back the enqueuing if
-     * stopped, or start a new thread if there are none.
-     *
-     * 3. If we cannot queue task, then we try to add a new
-     * thread.  If it fails, we know we are shut down or saturated
-     * and so reject the task.
-     */
-    // clt记录着runState和workerCount
+    // 获取核心属性ctl，用于后面的判断
     int c = ctl.get();
-    /*
-     * workerCountOf方法取出低29位的值，表示当前活动的线程数；
-     * 如果当前活动线程数小于corePoolSize，则新建一个线程放入线程池中；
-     * 并把任务添加到该线程中。
-     */
+    // 如果工作线程个数，小于核心线程数。
+    // 满足要求，添加核心工作线程
     if (workerCountOf(c) < corePoolSize) {
-        /*
-         * addWorker中的第二个参数表示限制添加线程的数量是根据corePoolSize来判断还是maximumPoolSize来判断；
-         * 如果为true，根据corePoolSize来判断；
-         * 如果为false，则根据maximumPoolSize来判断
-         */
+        // addWorker(任务,是核心线程吗)
+        // addWorker返回true：代表添加工作线程成功
+        // addWorker返回false：代表添加工作线程失败
+        // addWorker中会基于线程池状态，以及工作线程个数做判断，查看能否添加工作线程
         if (addWorker(command, true))
+            // 工作线程构建出来了，任务也交给command去处理了。
             return;
-        /*
-         * 如果添加失败，则重新获取ctl值
-         */
+        // 说明线程池状态或者是工作线程个数发生了变化，导致添加失败，重新获取一次ctl
         c = ctl.get();
     }
-    /*
-     * 如果当前线程池是运行状态并且任务添加到队列成功
-     */
+    // 添加核心工作线程失败，往这走
+    // 判断线程池状态是否是RUNNING，如果是，正常基于阻塞队列的offer方法，将任务添加到阻塞队列
     if (isRunning(c) && workQueue.offer(command)) {
+        // 如果任务添加到阻塞队列成功，走if内部
+        // 如果任务在扔到阻塞队列之前，线程池状态突然改变了。
+        // 重新获取ctl
         int recheck = ctl.get();
-        // 再次判断线程池的运行状态，如果不是运行状态，由于之前已经把command添加到workQueue中了，
-    	// 这时需要移除该command
-    	// 执行过后通过handler使用拒绝策略对该任务进行处理，整个方法返回
-        if (! isRunning(recheck) && remove(command))
+        // 如果线程池的状态不是RUNNING，将任务从阻塞队列移除，
+        if (!isRunning(recheck) && remove(command))
+            // 并且直接拒绝策略
             reject(command);
-         /*
-         * 获取线程池中的有效线程数，如果数量是0，则执行addWorker方法
-         * 这里传入的参数表示：
-         * 1. 第一个参数为null，表示在线程池中创建一个线程，但不去启动；
-         * 2. 第二个参数为false，将线程池的有限线程数量的上限设置为maximumPoolSize，添加线程时根据maximumPoolSize来判断；
-         * 如果判断workerCount大于0，则直接返回，在workQueue中新增的command会在将来的某个时刻被执行。
-         */
+        // 在这，说明阻塞队列有我刚刚放进去的任务
+        // 查看一下工作线程数是不是0个
+        // 如果工作线程为0个，需要添加一个非核心工作线程去处理阻塞队列中的任务
+        // 发生这种情况有两种：
+        // 1. 构建线程池时，核心线程数是0个。
+        // 2. 即便有核心线程，可以设置核心线程也允许超时，设置allowCoreThreadTimeOut为true，代表核心线程也可以超时
         else if (workerCountOf(recheck) == 0)
+            // 为了避免阻塞队列中的任务饥饿，添加一个非核心工作线程去处理
             addWorker(null, false);
     }
-    /*
-     * 如果执行到这里，有两种情况：
-     * 1. 线程池已经不是RUNNING状态；
-     * 2. 线程池是RUNNING状态，但workerCount >= corePoolSize并且workQueue已满。
-     * 这时，再次调用addWorker方法，但第二个参数传入为false，将线程池的有限线程数量的上限设置为maximumPoolSize；
-     * 如果失败则拒绝该任务
-     */
+    // 任务添加到阻塞队列失败
+    // 构建一个非核心工作线程
+    // 如果添加非核心工作线程成功，直接完事，告辞
     else if (!addWorker(command, false))
+        // 添加失败，执行决绝策略
         reject(command);
 }
 ```
@@ -264,7 +251,7 @@ public void execute(Runnable command) {
 
 ![线程池处理流程图]({{ site.url }}/images{{ page.url }}/process.png) 
 
-## 任务缓冲
+## 2.2任务缓冲
 
 任务缓冲模块是线程池能够管理任务的核心部分。线程池的本质是对任务和线程的管理，而做到这一点最关键的思想就是将任务和线程两者解耦，不让两者直接关联，才可以做后续的分配工作。线程池中是以生产者消费者模式，通过一个阻塞队列来实现的。阻塞队列缓存任务，工作线程从阻塞队列中获取任务。
 
@@ -278,7 +265,7 @@ public void execute(Runnable command) {
 
 ![阻塞队列2]({{ site.url }}/images{{ page.url }}/queue2.png) 
 
-## 任务申请
+## 2.3任务申请
 
 由上文的任务分配部分可知，任务的执行有两种可能：一种是任务直接由新创建的线程执行。另一种是线程从任务队列中获取任务然后执行，执行完任务的空闲线程会再次去从队列中申请任务再去执行。第一种情况仅出现在线程初始创建的时候，第二种是线程获取任务绝大多数的情况。
 
@@ -288,7 +275,7 @@ public void execute(Runnable command) {
 
 getTask这部分进行了多次判断，为的是控制线程的数量，使其符合线程池的状态。如果线程池现在不应该持有那么多线程，则会返回null值。工作线程Worker会不断接收新任务去执行，而当工作线程Worker接收不到任务的时候，就会开始被回收。 
 
-## 任务拒绝
+## 2.4任务拒绝
 
 任务拒绝模块是线程池的保护部分，线程池有一个最大的容量，当线程池的任务缓存队列已满，并且线程池中的线程数目达到maximumPoolSize时，就需要拒绝掉该任务，采取任务拒绝策略，保护线程池。
 
@@ -304,11 +291,11 @@ public interface RejectedExecutionHandler {
 
 ![拒绝策略]({{ site.url }}/images{{ page.url }}/reject.png) 
 
-# Worker线程管理 
+# 3.Worker线程管理 
 
 此小节引用自[Java线程池实现原理及其在美团业务中的实践](https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html)留作记录，以后需深入学习。
 
-## Worker线程
+## 3.1Worker线程
 
  线程池为了掌握线程的状态并维护线程的生命周期，设计了线程池内的工作线程Worker。我们来看一下它的部分代码： 
 
@@ -338,13 +325,165 @@ Worker是通过继承AQS，使用AQS来实现独占锁这个功能。没有使�
 
 ![线程池回收过程]({{ site.url }}/images{{ page.url }}/recycle.png) 
 
-## Worker线程增加
+## 3.2Worker线程增加
 
 增加线程是通过线程池中的addWorker方法，该方法的功能就是增加一个线程，该方法不考虑线程池是在哪个阶段增加的该线程，这个分配线程的策略是在上个步骤完成的，该步骤仅仅完成增加线程，并使它运行，最后返回是否成功这个结果。addWorker方法有两个参数：firstTask、core。firstTask参数用于指定新增的线程执行的第一个任务，该参数可以为空；core参数为true表示在新增线程时会判断当前活动线程数是否少于corePoolSize，false表示新增线程前需要判断当前活动线程数是否少于maximumPoolSize，其执行流程如下图所示： 
 
 ![申请线程执行流程图]({{ site.url }}/images{{ page.url }}/addWorker.png) 
 
-## Worker线程回收
+### ThreadPoolExecutor的addWorker方法
+
+addWorker中主要分成两大块去看
+
+* 第一块：校验线程池的状态以及工作线程个数
+* 第二块：添加工作线程并且启动工作线程
+
+校验线程池的状态以及工作线程个数
+
+```java
+// 添加工作线程之校验源码
+private boolean addWorker(Runnable firstTask, boolean core) {
+    // 外层for循环在校验线程池的状态
+    // 内层for循环是在校验工作线程的个数
+
+    // retry是给外层for循环添加一个标记，是为了方便在内层for循坏跳出外层for循环
+    retry:
+    for (;;) {
+        // 获取ctl
+        int c = ctl.get();
+        // 拿到ctl的高3位的值
+        int rs = runStateOf(c);
+//==========================线程池状态判断==================================================
+        // 如果线程池状态是SHUTDOWN，并且此时阻塞队列有任务，工作线程个数为0，添加一个工作线程去处理阻塞队列的任务
+
+        // 判断线程池的状态是否大于等于SHUTDOWN，如果满足，说明线程池不是RUNNING
+        if (rs >= SHUTDOWN &&
+            // 如果这三个条件都满足，就代表是要添加非核心工作线程去处理阻塞队列任务
+            // 如果三个条件有一个没满足，返回false，配合!，就代表不需要添加
+            !(rs == SHUTDOWN && firstTask == null && ! workQueue.isEmpty()))
+            // 不需要添加工作线程
+            return false;
+
+        for (;;) {
+//==========================工作线程个数判断================================================== 
+            // 基于ctl拿到低29位的值，代表当前工作线程个数   
+            int wc = workerCountOf(c);
+            // 如果工作线程个数大于最大值了，不可以添加了，返回false
+            if (wc >= CAPACITY ||
+                // 基于core来判断添加的是否是核心工作线程
+                // 如果是核心：基于corePoolSize去判断
+                // 如果是非核心：基于maximumPoolSize去判断
+                wc >= (core ? corePoolSize : maximumPoolSize))
+                // 代表不能添加，工作线程个数不满足要求
+                return false;
+            // 针对ctl进行 + 1，采用CAS的方式
+            if (compareAndIncrementWorkerCount(c))
+                // CAS成功后，直接退出外层循环，代表可以执行添加工作线程操作了。
+                break retry;
+            // 重新获取一次ctl的值
+            c = ctl.get(); 
+            // 判断重新获取到的ctl中，表示的线程池状态跟之前的是否有区别
+            // 如果状态不一样，说明有变化，重新的去判断线程池状态
+            if (runStateOf(c) != rs)
+                // 跳出一次外层for循环
+                continue retry;
+        }
+    }
+    // 省略添加工作线程以及启动的过程
+}
+```
+
+添加工作线程并且启动工作线程
+
+```java
+private boolean addWorker(Runnable firstTask, boolean core) {
+    // 省略校验部分的代码
+
+    // 添加工作线程以及启动工作线程~~~
+    // 声明了三个变量
+    // 工作线程启动了没，默认false
+    boolean workerStarted = false;
+    // 工作线程添加了没，默认false
+    boolean workerAdded = false;
+    // 工作线程，默认为null
+    Worker w = null;
+
+    try {
+        // 构建工作线程，并且将任务传递进去
+        w = new Worker(firstTask);
+        // 获取了Worker中的Thread对象
+        final Thread t = w.thread;
+        // 判断Thread是否不为null，在new Worker时，内部会通过给予的ThreadFactory去构建Thread交给Worker
+        // 一般如果为null，代表ThreadFactory有问题。
+        if (t != null) {
+            // 加锁，保证使用workers成员变量以及对largestPoolSize赋值时，保证线程安全
+            final ReentrantLock mainLock = this.mainLock;
+            mainLock.lock();
+            try {
+                // 再次获取线程池状态。
+                int rs = runStateOf(ctl.get());
+                // 再次判断
+                // 如果满足  rs < SHUTDOWN  说明线程池是RUNNING，状态正常，执行if代码块
+                // 如果线程池状态为SHUTDOWN，并且firstTask为null，添加非核心工作处理阻塞队列任务
+                if (rs < SHUTDOWN ||
+                    (rs == SHUTDOWN && firstTask == null)) {
+                    // 到这，可以添加工作线程。
+                    // 校验ThreadFactory构建线程后，不能自己启动线程，如果启动了，抛出异常
+                    if (t.isAlive()) 
+                        throw new IllegalThreadStateException();
+                    // private final HashSet<Worker> workers = new HashSet<Worker>();
+                    // 将new好的Worker添加到HashSet中。
+                    workers.add(w);
+                    // 获取了HashSet的size，拿到工作线程个数
+                    int s = workers.size();
+                    // largestPoolSize在记录最大线程个数的记录
+                    // 如果当前工作线程个数，大于最大线程个数的记录，就赋值
+                    if (s > largestPoolSize)
+                        largestPoolSize = s;
+                    // 添加工作线程成功
+                    workerAdded = true;
+                }
+            } finally {
+                mainLock.unlock();
+            }
+            // 如果工作线程添加成功，
+            if (workerAdded) {
+                // 直接启动Worker中的线程
+                t.start();
+                // 启动工作线程成功
+                workerStarted = true;
+            }
+        }
+    } finally {
+        // 做补偿的操作，如果工作线程启动失败，将这个添加失败的工作线程处理掉
+        if (!workerStarted)
+            addWorkerFailed(w);
+    }
+    // 返回工作线程是否启动成功
+    return workerStarted;
+}
+// 工作线程启动失败，需要不的步长操作
+private void addWorkerFailed(Worker w) {
+    // 因为操作了workers，需要加锁
+    final ReentrantLock mainLock = this.mainLock;
+    mainLock.lock();
+    try {
+        // 如果w不为null，之前Worker已经new出来了。
+        if (w != null)
+            // 从HashSet中移除
+            workers.remove(w);
+        // 同时对ctl进行 - 1，代表去掉了一个工作线程个数
+        decrementWorkerCount();
+        // 因为工作线程启动失败，判断一下状态的问题，是不是可以走TIDYING状态最终到TERMINATED状态了。
+        tryTerminate();
+    } finally {
+        // 释放锁
+        mainLock.unlock();
+    }
+}
+```
+
+## 3.3Worker线程回收
 
 线程池中线程的销毁依赖JVM自动的回收，线程池做的工作是根据当前线程池的状态维护一定数量的线程引用，防止这部分线程被JVM回收，当线程池决定哪些线程需要回收时，只需要将其引用消除即可。Worker被创建出来后，就会不断地进行轮询，然后获取任务去执行，核心线程可以无限等待获取任务，非核心线程要限时获取任务。当Worker无法获取到任务，也就是获取的任务为空时，循环会结束，Worker会主动消除自身在线程池内的引用。
 
@@ -364,7 +503,7 @@ try {
 
 事实上，在这个方法中，将线程引用移出线程池就已经结束了线程销毁的部分。但由于引起线程销毁的可能性有很多，线程池还要判断是什么引发了这次销毁，是否要改变线程池的现阶段状态，是否要根据新状态，重新分配线程。 
 
-## Worker线程执行任务
+## 3.4Worker线程执行任务
 
 在Worker类中的run方法调用了runWorker方法来执行任务，runWorker方法的执行过程如下：
 
