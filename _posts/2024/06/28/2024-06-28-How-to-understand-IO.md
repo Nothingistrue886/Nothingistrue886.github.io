@@ -6,6 +6,8 @@ description: How to understand IO
 keywords: Java
 ---
 
+![Nginx 502 Bad Gateway](D:/Git Repository/Nothingistrue886.github.io/_posts/{{ site.url }}/images{{ page.url }}/IO流.png) 
+
 # 理解JavaIO框架的设计思想
 
 初学者觉得复杂是很正常的，归根结底是因为没有理解JavaIO框架的设计思想：
