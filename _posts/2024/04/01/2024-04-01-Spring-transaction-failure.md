@@ -730,3 +730,7 @@ public void save(final User user) {
 
 
 
+# 参考资料
+
+- [1]  [spring 事务失效的 12 种场景](https://blog.csdn.net/hanjiaqian/article/details/120501741)
+- [2]  [20%的业务代码的Spring声明式事务，可能都没处理正确](https://time.geekbang.org/column/article/213295)

@@ -49,3 +49,8 @@ Spring 事务传播机制可使用 @Transactional(propagation=Propagation.REQUIR
 - Propagation.NEVER：必须一起租房子，你有房子就分手。
 
 最后一种是嵌套性事务 Propagation.NESTED，它属于懂事型女友，如果有房子了就以房子为基础做点小生意，卖个花生、水果啥的，如果买卖成了，那就继续发展；如果失败了，至少还有房子；如果没房子也没关系，一起赚钱买房子。
+
+# 转载
+
+磊哥|www.javacn.site：[说一下 Spring 事务传播机制？](https://www.cnblogs.com/vipstone/p/16735893.html)
+
