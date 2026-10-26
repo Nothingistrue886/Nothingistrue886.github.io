@@ -1,10 +1,10 @@
 {
-  "name": "sunbufu's blog",
-  "short_name": "sunbufu",
+  "name": "崔作非的博客",
+  "short_name": "崔作非",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#fff",
-  "description": "sunbufu's blog app.",
+  "description": "崔作非的博客",
   "icons": [{
     "src": "favicon-16x16.png",
     "sizes": "16x16",

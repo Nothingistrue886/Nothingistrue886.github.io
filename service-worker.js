@@ -6,7 +6,7 @@ layout: null
 
 const
     version = '{{site.time}}',
-    CACHE = "sunbufu's blog " + version,
+    CACHE = "cuizuofei's blog " + version,
     offlineURL = '/offline.html',
     // installFilesEssential = [],
     installFilesEssential = [
@@ -22,12 +22,8 @@ const
         '/assets/css/sections/mini-repo-list.css',
         '/assets/css/components/boxed-group.css',
         '/assets/css/globals/common.css',
-        '/assets/vendor/share.js/dist/css/share.min.css',
         '/assets/css/globals/responsive.css',
         '/assets/css/posts/index.css',
-        '/assets/vendor/fancybox/jquery.fancybox.css',
-        '/assets/css/globals/prism.css',
-        '/assets/vendor/js-sequence-diagrams/dist/sequence-diagram-min.css',
         '/assets/vendor/jquery/dist/jquery.min.js',
         '/assets/js/jquery-ui.js',
         '/assets/js/main.js',
@@ -46,14 +42,11 @@ function installStaticFiles() {
             // cache desirable files
             cache.addAll(installFilesDesirable);
             // cache essential files
-            installFilesEssential.forEach(value => {
-                try {
-                    cache.add(value);
-                } catch (e) {
-                    console.log("cache error " + value);
-                }
-            });
-            // return cache.addAll(installFilesEssential);
+            return Promise.all(
+                installFilesEssential.map(value =>
+                    cache.add(value).catch(() => console.log("cache error " + value))
+                )
+            );
         });
 }
 

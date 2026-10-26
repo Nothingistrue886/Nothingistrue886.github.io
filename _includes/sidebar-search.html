@@ -1,7 +1,7 @@
 
-<h3>Search</h3>
+<h3>搜索</h3>
 <div id="site_search">
-    <input type="text" id="search_box" placeholder="Search">
+    <input type="text" id="search_box" placeholder="搜索">
 </div>
 
 <ul id="search_results"></ul>
@@ -15,8 +15,8 @@ SimpleJekyllSearch({
     searchInput: document.getElementById('search_box'),
     resultsContainer: document.getElementById('search_results'),
     json: '{{ site.url }}/assets/search_data.json',
-    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
-    noResultsText: 'No results found',
+    searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>',
+    noResultsText: '未找到相关文章',
     limit: {{ site.simple_jekyll_search.limit }},
     fuzzy: false,
     exclude: ['Welcome']
