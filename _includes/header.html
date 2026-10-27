@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="{{ site.url }}/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="{{ site.url }}/assets/vendor/octicons/octicons/octicons.css">
     <link rel="stylesheet" href="{{ site.url }}/assets/css/components/collection.css">
-    <link rel="stylesheet" href="{{ site.url }}/assets/css/components/repo-card.css">
     <link rel="stylesheet" href="{{ site.url }}/assets/css/sections/repo-list.css">
     <link rel="stylesheet" href="{{ site.url }}/assets/css/sections/mini-repo-list.css">
     <link rel="stylesheet" href="{{ site.url }}/assets/css/components/boxed-group.css">
@@ -90,12 +89,5 @@
             {% endfor %}
         </nav>
     </div>
-    <script>
-        $(function () {
-            var pattern = GeoPattern.generate('{{ site.author }}' + Math.random(), {generator: "plaid"});
-            $('.home .site-header').css('background', pattern.toDataUrl());
-            $('.home .banner').css('background', pattern.toDataUrl());
-        });
-    </script>
 </header>
 <!-- / header -->

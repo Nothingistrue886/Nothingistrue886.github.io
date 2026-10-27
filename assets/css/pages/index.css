@@ -1,38 +1,25 @@
-.home .banner,
-.home .site-header {
-    background: #4183c4;
-    color: #fff
+.home .banner {
+    background: #fafafa;
+    border-bottom: 1px solid #eaecef;
 }
 
 .home .banner .collection-head {
-    color: #fff;
-    background: 0 0;
+    color: #24292f;
+    background: transparent;
+    border-bottom: none;
     box-shadow: none;
-    -webkit-box-shadow: none
+    -webkit-box-shadow: none;
+    padding: 1.25rem 0;
+    margin-bottom: 0;
 }
 
-.home .site-header {
-    border-bottom: none
-}
-
-.home .site-header h1 a {
-    color: #fff
-}
-
-.home .site-header .site-header-nav-item {
-    color: rgba(255, 255, 255, .5)
-}
-
-.home .site-header .site-header-nav-item:hover {
-    color: #fff
+.home .banner {
+    margin-top: -20px;
+    margin-bottom: 24px;
 }
 
 @media (max-width:50em) {
-  .home .collapsed .icon-bar {
-    background-color: white;
-  }
-
   .home .collection-head .collection-header {
-    font-size: 1.25em;
+    font-size: 1.5em;
   }
 }
