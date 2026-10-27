@@ -63,26 +63,27 @@
       if (!settings.noBackToTopLinks && this_level === highest_level) {
         $(header).addClass('top-level-header').after(return_to_top);
       }
+      var titleText = $(header).text();
       if (this_level === level) {// same level as before; same indenting
         html += "<li class=\"toc-item toc-level-" + this_level + "\">";
-        html += "<a class=\"jumper\" href='#" + fixedEncodeURIComponent(header.id) + "'>";
-        html += "<span class='toc-text'>" + header.innerHTML + "</span>";
+        html += "<a class=\"jumper\" href='#" + fixedEncodeURIComponent(header.id) + "' title=\"" + titleText.replace(/"/g, '&quot;') + "\">";
+        html += "<span class='toc-text'>" + titleText + "</span>";
         html += "</a>";
 
       } else if (this_level <= level){ // higher level than before; end parent ol
         for(i = this_level; i < level; i++) {
           html += "</li></"+settings.listType+">"
         }
-        html += "<li class='toc-item toc-level-" + this_level + "'><a class=\"jumper\" href='#" + fixedEncodeURIComponent(header.id) + "'>";
-        html += "<span class='toc-text'>" + header.innerHTML + "</span>";
+        html += "<li class='toc-item toc-level-" + this_level + "'><a class=\"jumper\" href='#" + fixedEncodeURIComponent(header.id) + "' title=\"" + titleText.replace(/"/g, '&quot;') + "\">";
+        html += "<span class='toc-text'>" + titleText + "</span>";
         html += "</a>";
       }
       else if (this_level > level) { // lower level than before; expand the previous to contain a ol
         for(i = this_level; i > level; i--) {
           html += "<"+settings.listType+" class='toc-child'><li class='toc-item toc-level-" + i + "'>"
         }
-        html += "<a class=\"jumper\" href='#" + fixedEncodeURIComponent(header.id) + "'>";
-        html += "<span class='toc-text'>" + header.innerHTML + "</span>";
+        html += "<a class=\"jumper\" href='#" + fixedEncodeURIComponent(header.id) + "' title=\"" + titleText.replace(/"/g, '&quot;') + "\">";
+        html += "<span class='toc-text'>" + titleText + "</span>";
         html += "</a>";
       }
       level = this_level; // update for the next one
