@@ -111,27 +111,41 @@ function offlineAsset(url) {
 
 // application fetch network data
 self.addEventListener('fetch', event => {
-    // abandon non-GET requests
+    // abandon non-GET requests or cross-origin requests (giscus, analytics, etc.)
     if (event.request.method !== 'GET') return;
     let url = event.request.url;
+    if (!url.startsWith(self.location.origin)) return;
+
+    // HTML navigation: network first, fallback to cache/offline page
+    if (event.request.mode === 'navigate' || (event.request.headers.get('accept') || '').includes('text/html')) {
+        event.respondWith(
+            fetch(event.request)
+                .then(response => {
+                    if (response.ok) {
+                        let copy = response.clone();
+                        caches.open(CACHE).then(cache => cache.put(event.request, copy));
+                    }
+                    return response;
+                })
+                .catch(() => caches.match(event.request).then(res => res || offlineAsset(url)))
+        );
+        return;
+    }
+
+    // Static assets: cache first, fallback to network
     event.respondWith(
         caches.open(CACHE)
             .then(cache => {
                 return cache.match(event.request)
                     .then(response => {
                         if (response) {
-                            // return cached file
-                            console.log('cache fetch: ' + url);
                             return response;
                         }
-                        // make network request
                         return fetch(event.request)
                             .then(newreq => {
-                                console.log('network fetch: ' + url);
                                 if (newreq.ok) cache.put(event.request, newreq.clone());
                                 return newreq;
                             })
-                            // app is offline
                             .catch(() => offlineAsset(url));
                     });
             })
