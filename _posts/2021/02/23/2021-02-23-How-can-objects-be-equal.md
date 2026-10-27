@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 对象要怎样才算相等？
-categories: [Java, Java SE]
+categories: [Java]
 description: hashcode和equals
 keywords: Java,  hashcode, equals
 ---

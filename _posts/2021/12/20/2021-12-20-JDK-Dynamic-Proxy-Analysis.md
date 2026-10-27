@@ -1,7 +1,7 @@
 ---
 layout: post
 title: JDK动态代理源码分析
-categories: [Java, Design Patterns]
+categories: [设计模式]
 description: Design Patterns
 keywords: Java,  Design Patterns
 ---

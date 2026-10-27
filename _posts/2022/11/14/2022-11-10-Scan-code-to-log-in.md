@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 基于SpringBoot + Redis + 轮询实现扫码登录
-categories: [Java]
+categories: [Spring]
 description: Scan code to log in
 keywords: Java
 ---

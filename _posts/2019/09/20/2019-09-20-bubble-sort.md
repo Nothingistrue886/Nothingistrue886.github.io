@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 冒泡排序的Java实现
-categories: [Algorithm, Sort]
+categories: [Java]
 description: 冒泡排序
 keywords: 算法, 排序
 ---

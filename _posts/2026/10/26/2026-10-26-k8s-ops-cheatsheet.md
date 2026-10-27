@@ -2,7 +2,7 @@
 layout: post
 title: 常用的 kubectl 排障命令
 slug: k8s-ops-cheatsheet
-categories: [Kubernetes]
+categories: [运维与工具]
 description: 按场景整理的 kubectl 命令。命名空间和资源名用占位符，复制后换成自己的再执行
 keywords: Kubernetes, kubectl, Pod, 日志
 ---

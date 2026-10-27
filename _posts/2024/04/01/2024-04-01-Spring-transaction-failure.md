@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Spring事务失效
-categories: [Java, Spring]
+categories: [Spring]
 description: spring事务失效
 keywords: Spring
 ---

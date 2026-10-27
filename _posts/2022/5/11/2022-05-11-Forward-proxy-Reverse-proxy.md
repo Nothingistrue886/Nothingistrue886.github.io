@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 正向代理和反向代理
-categories: [basis]
+categories: [架构与网络]
 description: 正向代理和反向代理总结
 keywords: proxy
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: RPC是什么
-categories: [RPC]
+categories: [架构与网络]
 description: RPC是进程间的一种通讯方式
 keywords: RPC
 ---

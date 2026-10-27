@@ -1,7 +1,7 @@
 ---
 layout: post
 title: synchronized有几种用法？
-categories: [Java, Java SE]
+categories: [Java]
 description: synchronized
 keywords: synchronized
 ---

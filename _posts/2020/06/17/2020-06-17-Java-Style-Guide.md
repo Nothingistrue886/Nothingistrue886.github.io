@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Java Style Guide
-categories: [Java, 编程规约]
+categories: [Java]
 description: 无规矩不成方圆，无规范难以协同
 keywords: Java,  编程规约
 ---

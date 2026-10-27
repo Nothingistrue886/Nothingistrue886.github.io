@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Docker 常用命令
-categories: [Docker]
+categories: [运维与工具]
 description: Docker 的常用命令和常用软件命令
 keywords: Docker, Docker 常用命令
 ---

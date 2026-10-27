@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Mac 键盘符号和 IDEA 快捷键说明
-categories: [快捷键]
+categories: [运维与工具]
 description: Mac键盘符号和修饰键说明
 keywords: 快捷键
 ---

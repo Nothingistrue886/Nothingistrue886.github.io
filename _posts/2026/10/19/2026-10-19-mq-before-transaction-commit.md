@@ -2,7 +2,7 @@
 layout: post
 title: 事务还没提交，消息已经发出去了
 slug: mq-before-transaction-commit
-categories: [Java, Spring]
+categories: [Spring]
 description: 事务提交前发送 MQ，消费者按主键查库会偶发查不到；先把发送挪到提交之后，丢消息再用状态字段加定时补发
 keywords: Spring, Transaction, MQ, afterCommit
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Java线程池的实现原理
-categories: [Java, Java SE]
+categories: [Java]
 description: 线程池
 keywords: Thread pool, 线程池
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Web应用架构的演进
-categories: [Web架构]
+categories: [架构与网络]
 description: 从单体应用、垂直拆分到分布式服务与治理
 keywords: Web, 架构演进, 单体架构, 垂直拆分, 分布式服务
 ---

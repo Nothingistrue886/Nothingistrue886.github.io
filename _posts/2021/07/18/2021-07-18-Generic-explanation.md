@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Java泛型详解-全网最详细的讲解
-categories: [Java, Java SE]
+categories: [Java]
 description: 泛型
 keywords: Java, Generic
 ---

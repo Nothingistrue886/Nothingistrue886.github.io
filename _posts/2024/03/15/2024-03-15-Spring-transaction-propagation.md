@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Spring事务传播机制
-categories: [Java, Spring]
+categories: [Spring]
 description: spring事务传播机制
 keywords: Spring
 ---

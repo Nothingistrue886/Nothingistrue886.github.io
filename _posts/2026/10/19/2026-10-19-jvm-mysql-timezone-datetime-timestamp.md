@@ -2,7 +2,7 @@
 layout: post
 title: JVM、MySQL 和两种时间类型：为什么「同一时刻」对不上
 slug: jvm-mysql-timezone-datetime-timestamp
-categories: [Java, MySQL]
+categories: [Java]
 description: JVM 默认时区、MySQL 会话时区和 TIMESTAMP/DATETIME 叠在一起，同一条记录上的时间会对不上
 keywords: TimeZone, LocalDateTime, MySQL, TIMESTAMP, DATETIME
 ---
