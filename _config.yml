@@ -39,14 +39,6 @@ navs:
     label: 归档
 
   -
-    href: /wiki/
-    label: 维基
-
-  -
-    href: /links/
-    label: 链接
-
-  -
     href: /about/
     label: 关于
 
@@ -76,10 +68,6 @@ plugins:
   - jemoji
 #     - jekyll-html-pipeline
 #     - jekyll-mentions
-collections:
-  wiki:
-    output: true
-    permalink: /wiki/:path/
 
 repository: Nothingistrue886/Nothingistrue886.github.io
 

@@ -1,5 +1,5 @@
 ---
-layout: wiki
+layout: post
 title: Docker 常用命令
 categories: [Docker]
 description: Docker 的常用命令和常用软件命令

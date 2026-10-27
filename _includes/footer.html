@@ -37,7 +37,7 @@
 </div>
 <!-- / footer -->
 <script src="{{ site.url }}/assets/js/geopattern.js"></script>
-{% if page.layout == 'post' or page.layout == 'wiki' or page.layout == 'page' %}
+{% if page.layout == 'post' or page.layout == 'page' %}
 <script src="{{ site.url }}/assets/js/prism.js"></script>
 <script src="{{ site.url }}/assets/js/jquery.fancybox.pack.js" type="text/javascript"></script>
 {% endif %}
@@ -48,7 +48,7 @@
             $(this).geopattern($(this).data('pattern-id'));
         });
         // hljs.initHighlightingOnLoad();
-        {% if page.layout == 'post' or page.layout == 'wiki' or page.layout == 'page' %}
+        {% if page.layout == 'post' or page.layout == 'page' %}
         // 给图片添加异步解码、懒加载与灯箱链接
         $("body").find("img").each(function () {
             if (!this.getAttribute("loading")) {
@@ -60,7 +60,7 @@
         });
         {% endif %}
     });
-    {% if page.layout == 'post' or page.layout == 'wiki' or page.layout == 'page' %}
+    {% if page.layout == 'post' or page.layout == 'page' %}
     // fancybox
     $(".fancybox").fancybox({
         'openEffect': 'elastic',
@@ -75,20 +75,5 @@
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 {% endif %}
-
-<script>
-    // 首页打开sw
-    if("/" == '{{page.url}}'){
-        // 检测浏览器是否支持SW
-        if(navigator.serviceWorker != null){
-            navigator.serviceWorker.register('/service-worker.js')
-                .then(function(registartion){
-                    console.log('支持sw:',registartion.scope)
-                })
-        } else {
-            console.log('不支持sw')
-        }
-    }
-</script>
 </body>
 </html>
