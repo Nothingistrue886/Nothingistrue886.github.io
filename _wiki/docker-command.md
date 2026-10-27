@@ -64,7 +64,7 @@ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 * `--publish , -p` : 绑定宿主机端口到容器端口（例如 `-p 8080:80` 把宿主机 8080 端口绑定到容器的 80 端口）
 * `--detach , -d` : 后台启动容器，并返回容器的 id
 * `--name` : 指定容器的名称
-* `--volume , -v` : 绑定挂载宿主机目录到容器目录（例如 `-v /Users/sunbufu/data/logs:/logs 绑定挂载宿主机 /Users/sunbufu/data/logs 到容器到 /logs 目录`）
+* `--volume , -v` : 绑定挂载宿主机目录到容器目录（例如 `-v /Users/demo/data/logs:/logs 绑定挂载宿主机 /Users/demo/data/logs 到容器到 /logs 目录`）
 * `--env , -e` : 设置容器的环境变量
 * `--link` : 与另外的容器建立链接
 
@@ -162,8 +162,8 @@ mysql -u root -p
 ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';
 
 #添加远程登录用户
-CREATE USER 'sunbufu'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
-GRANT ALL PRIVILEGES ON *.* TO 'sunbufu'@'%';
+CREATE USER 'demo'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
+GRANT ALL PRIVILEGES ON *.* TO 'demo'@'%';
 ```
 
 ## 2.3 mongodb
@@ -251,7 +251,7 @@ docker run \
 --publish 21:21 \
 --publish 21100-21110:21100-21110 \
 --volume ~/data/vsftpd/data:/home/vsftpd \
---env FTP_USER=sunbufu \
+--env FTP_USER=demo \
 --env FTP_PASS=123456 \
 --name vsftpd \
 fauria/vsftpd

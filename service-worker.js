@@ -25,7 +25,6 @@ const
         '/assets/css/globals/responsive.css',
         '/assets/css/posts/index.css',
         '/assets/vendor/jquery/dist/jquery.min.js',
-        '/assets/js/jquery-ui.js',
         '/assets/js/main.js',
         '/manifest.json',
         '/apple-touch-icon.png',
