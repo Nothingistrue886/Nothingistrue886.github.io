@@ -70,28 +70,28 @@
 }
 
 .site-header h1 {
-    float: left
-}
-
-.site-header h1,.site-header h1 .octicon {
+    float: left;
     margin-top: 0;
     margin-bottom: 0;
-    font-size: 32px;
-    font-weight: 400;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
     line-height: 28px;
     vertical-align: top
 }
 
-.context-loader,.markdown-body dl dt,.markdown-body table th,.pl-mb,.pl-mdr,.pl-mh,.pl-mh .pl-en,.pl-ms,.pl-sr .pl-cce,.site-header h1 strong {
+.context-loader,.markdown-body dl dt,.markdown-body table th,.site-header h1 strong {
     font-weight: 700
 }
 
 .site-header h1 a {
     white-space: nowrap;
-    color: #333
+    color: #1f2328
 }
 
 .site-header h1 a:hover {
+    color: #0969da;
     text-decoration: none
 }
 
@@ -606,88 +606,113 @@
     box-shadow: inset 0 -1px 0 #bbb
 }
 
-.pl-c {
-    color: #969896
+/* GitHub Light Syntax Highlighting for Jekyll Rouge */
+.highlight {
+    color: #24292f;
 }
-
-.pl-c1,.pl-s .pl-v {
-    color: #0086b3
+.highlight .c,
+.highlight .ch,
+.highlight .cd,
+.highlight .cm,
+.highlight .cpf,
+.highlight .c1,
+.highlight .cs {
+    color: #6e7781;
+    font-style: italic;
 }
-
-.pl-e,.pl-en {
-    color: #795da3
+.highlight .cp {
+    color: #cf222e;
+    font-weight: 600;
 }
-
-.pl-s .pl-s1,.pl-smi {
-    color: #333
+.highlight .err {
+    color: #f6f8fa;
+    background-color: #82071e;
 }
-
-.pl-ent {
-    color: #63a35c
+.highlight .k,
+.highlight .kc,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr,
+.highlight .kt,
+.highlight .kv {
+    color: #cf222e;
 }
-
-.pl-k {
-    color: #a71d5d
+.highlight .o,
+.highlight .ow {
+    color: #cf222e;
 }
-
-.pl-pds,.pl-s,.pl-s .pl-pse .pl-s1,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre {
-    color: #183691
+.highlight .nb,
+.highlight .bp {
+    color: #0550ae;
 }
-
-.pl-v {
-    color: #ed6a43
+.highlight .nc,
+.highlight .no,
+.highlight .nd,
+.highlight .nn {
+    color: #953800;
 }
-
-.pl-id {
-    color: #b52a1d
+.highlight .ne,
+.highlight .nf,
+.highlight .fm,
+.highlight .nl {
+    color: #8250df;
 }
-
-.pl-ii {
-    background-color: #b52a1d;
-    color: #f8f8f8
+.highlight .nt {
+    color: #116329;
 }
-
-.pl-sr .pl-cce {
-    color: #63a35c
+.highlight .na,
+.highlight .nv,
+.highlight .vc,
+.highlight .vg,
+.highlight .vi,
+.highlight .vm,
+.highlight .m,
+.highlight .mb,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .il,
+.highlight .mo,
+.highlight .mx,
+.highlight .sc,
+.highlight .sd,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sx {
+    color: #0550ae;
 }
-
-.pl-ml {
-    color: #693a17
+.highlight .s,
+.highlight .sa,
+.highlight .sb,
+.highlight .dl,
+.highlight .s2,
+.highlight .s1,
+.highlight .ss {
+    color: #0a3069;
 }
-
-.pl-mh,.pl-mh .pl-en,.pl-ms {
-    color: #1d3e81
+.highlight .sr {
+    color: #116329;
 }
-
-.pl-mq {
-    color: teal
+.highlight .gd {
+    color: #82071e;
+    background-color: #ffebe9;
 }
-
-.pl-mi {
-    color: #333;
-    font-style: italic
+.highlight .gi {
+    color: #116329;
+    background-color: #dafbe1;
 }
-
-.pl-mb {
-    color: #333
+.highlight .ge {
+    font-style: italic;
 }
-
-.pl-md {
-    background-color: #ffecec;
-    color: #bd2c00
+.highlight .gs {
+    font-weight: 700;
 }
-
-.pl-mi1 {
-    background-color: #eaffea;
-    color: #55a532
-}
-
-.pl-mdr {
-    color: #795da3
-}
-
-.pl-mo {
-    color: #1d3e81
+.highlight .gh,
+.highlight .gu {
+    color: #0550ae;
+    font-weight: 700;
 }
 
 pre {
