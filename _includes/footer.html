@@ -5,7 +5,7 @@
             <span title="{{ site.author }}">{{ site.author }}</span>
         </div>
 
-        <ul class="site-footer-links right mobile-hidden">
+        <ul class="site-footer-links mobile-hidden">
             {% for nav in site.navs %}
             <li>
                 <a href="{{ site.url }}{{ nav.href }}" title="{{ nav.label }}" target="{{ nav.target | default: _self }}">
