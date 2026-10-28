@@ -8,7 +8,6 @@ menu: 归档
 permalink: /archives/
 ---
 
-Let’s not forget from whence we came.
 
 <section class="container posts-content">
 {% assign count = 1 %}
