@@ -8,7 +8,6 @@ menu: 关于
 permalink: /about/
 ---
 
-No one could ever replace you.
 
 ## 联系方式
 
