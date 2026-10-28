@@ -10,7 +10,7 @@ bundle exec jekyll serve
 
 ## 写作约定
 
-1. **文章路径**：`_posts/YYYY/MM/DD/YYYY-MM-DD-slug.md`
+1. **文章路径**：`_posts/YYYY-MM-DD-slug.md`（网页访问 URL 为 `/posts/slug/`）
 2. **Front Matter 模板**：
    ```yaml
    ---
@@ -21,7 +21,7 @@ bundle exec jekyll serve
    keywords: 关键词1, 关键词2
    ---
    ```
-3. **图片路径**：存放于 `images/YYYY/MM/DD/slug/`，文内引用：
+3. **图片路径**：存放于 `images/posts/slug/`，文内引用：
    ```markdown
-   ![说明]({{ site.url }}/images/YYYY/MM/DD/slug/example.png)
+   ![说明]({{ site.url }}/images{{ page.url }}example.png)
    ```

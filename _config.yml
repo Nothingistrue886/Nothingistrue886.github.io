@@ -58,7 +58,7 @@ paginate: 8
 lsi: false
 quiet: false
 excerpt_separator: "\n\n"
-permalink: /:year/:month/:day/:title/
+permalink: /posts/:title/
 plugins:
   - jekyll-github-metadata
   - rouge
