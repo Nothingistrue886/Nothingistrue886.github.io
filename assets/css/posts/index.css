@@ -1,5 +1,6 @@
 #post-directory-module {
     z-index: 999;
+    width: 220px;
 }
 
 .post-directory-title {
@@ -11,7 +12,8 @@
     background: transparent;
     overflow-x: hidden;
     overflow-y: auto;
-    max-width: 240px;
+    width: 220px;
+    max-width: 220px;
     padding: 4px 0 1em 0;
     border: none;
     border-left: 2px solid #eaecef;

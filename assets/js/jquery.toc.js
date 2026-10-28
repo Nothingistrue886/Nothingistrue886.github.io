@@ -146,19 +146,19 @@ $(document).ready(function(){
       $('.post-directory').css('max-height', height);
   }
 
-  $(window).scroll(function() {
+    $(window).scroll(function() {
     var currentScroll = $(window).scrollTop();
     if (currentScroll >= fixmeTop) {
       $('#post-directory-module').css({
-        top: '0',
+        top: '20px',
         position: 'fixed',
-        width: 'inherit'
+        width: '220px'
       });
       $('.post-directory').css('overflow', 'auto');
     } else {
       $('#post-directory-module').css({
-        position: 'inherit',
-        width: 'inherit'
+        position: 'static',
+        width: '220px'
       });
       $('.post-directory').css('overflow', 'hidden');
       $('.post-directory').scrollTop(0);
