@@ -2,7 +2,7 @@
 layout: page
 title: 关于
 description: 
-keywords: cuizuofei
+keywords: Zuofei Cui
 comments: true
 menu: 关于
 permalink: /about/

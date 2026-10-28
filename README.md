@@ -1,4 +1,4 @@
-# Nothingistrue886.github.io
+# Zuofei's Notes
 
 个人技术博客：<https://nothingistrue886.github.io>
 

@@ -4,10 +4,10 @@
 baseurl:
 url: https://nothingistrue886.github.io
 date_format: "ordinal"
-title: 崔作非的博客
+title: Zuofei's Notes
 subtitle: "Less is More."
 description: "疾风劲草"
-keywords: 崔作非的博客, Nothingistrue886
+keywords: Zuofei's Notes, Zuofei Cui, Nothingistrue886
 timezone: Asia/Shanghai
 encoding: "utf-8"
 side_bar_repo_limit: 5
@@ -15,7 +15,7 @@ side_bar_repo_limit: 5
 # ---------------- #
 #      Author      #
 # ---------------- #
-author: cuizuofei
+author: Zuofei Cui
 organization: bilibili
 organization_url: https://www.bilibili.com/
 github_username: Nothingistrue886
