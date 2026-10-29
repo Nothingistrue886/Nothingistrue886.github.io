@@ -3,27 +3,20 @@ layout: default
 ---
 <section class="collection-head small">
     <div class="container">
-        <div class="columns">
-            <div class="column three-fourths">
-                <div class="collection-title">
-                    <h1 class="collection-header">{{ page.title }}</h1>
-                </div>
-            </div>
+        <div class="collection-title">
+            <h1 class="collection-header">{{ page.title }}</h1>
         </div>
     </div>
 </section>
 <!-- / .banner -->
 <section class="container content">
     <div class="columns">
-        <div class="column three-fourths">
+        <div class="column two-thirds">
             <article class="article-content markdown-body">
                 {{ content }}
             </article>
-            <div class="comment">
-                {% include comments.html %}
-            </div>
         </div>
-        <div class="column one-fourth">
+        <div class="column one-third">
             {% include sidebar-search.html %}
             {% include sidebar-categories-nav.html %}
         </div>

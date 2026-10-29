@@ -1,14 +1,14 @@
 ---
 layout: categories
 title: 分类
-description: 哈哈，你找到了我的文章基因库
+description: 文章分类
 keywords: 分类
 comments: false
 menu: 分类
 permalink: /categories/
 ---
 
-<section class="container posts-content">
+<section class="posts-content">
 {% assign sorted_categories = site.categories | sort %}
 {% for category in sorted_categories %}
 <h3>{{ category | first }}</h3>
@@ -22,4 +22,3 @@ permalink: /categories/
 </ol>
 {% endfor %}
 </section>
-<!-- /section.content -->

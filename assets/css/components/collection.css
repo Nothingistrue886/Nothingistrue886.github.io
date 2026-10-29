@@ -1,27 +1,27 @@
 .collection-head {
-    padding: 1.5rem 0;
+    padding: 0.85rem 0;
     margin-top: -20px;
     margin-bottom: 24px;
-    background: #fafafa;
+    background: #ffffff;
     border-bottom: 1px solid #eaecef;
-    color: #24292f;
+    color: #57606a;
     box-shadow: none;
     text-shadow: none;
 }
 
 .collection-head.small {
-    padding: 1.25rem 0;
+    padding: 0.85rem 0;
 }
 
 .collection-head.small .collection-title {
-    padding: 6px 0;
+    padding: 4px 0;
 }
 
 .collection-head.small .collection-title h1.collection-header {
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 600;
-    color: #1f2328;
-    line-height: 1.35;
+    color: #24292f;
+    line-height: 1.4;
 }
 
 .collection-head a {
@@ -35,13 +35,13 @@
 
 .collection-head .collection-title {
     display: block;
-    padding: 8px 0;
+    padding: 4px 0;
 }
 
 .collection-head .collection-info {
-    margin-top: 8px;
+    margin-top: 6px;
     color: #57606a;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .collection-head .collection-info .meta-info {
@@ -50,15 +50,15 @@
 
 .collection-head .collection-header {
     margin-top: 0;
-    margin-bottom: 4px;
-    font-size: 32px;
-    line-height: 1.35;
-    font-weight: 600;
-    color: #1f2328;
+    margin-bottom: 0;
+    font-size: 18px;
+    line-height: 1.4;
+    font-weight: 500;
+    color: #57606a;
 }
 
 .collection-head .collection-description {
     position: relative;
-    font-size: 16px;
+    font-size: 15px;
     color: #57606a;
 }

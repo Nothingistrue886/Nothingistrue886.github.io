@@ -8,8 +8,7 @@ menu: 归档
 permalink: /archives/
 ---
 
-
-<section class="container posts-content">
+<section class="posts-content">
 {% assign count = 1 %}
 {% for post in site.posts reversed %}
     {% assign year = post.date | date: '%Y' %}
