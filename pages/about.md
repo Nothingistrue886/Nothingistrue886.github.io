@@ -8,7 +8,7 @@ menu: 关于
 permalink: /about/
 ---
 
-## 联系方式
+### 联系方式
 
 {% for website in site.data.social %}
 * {{ website.sitename }}：[{{ website.name }}]({{ website.url }})
