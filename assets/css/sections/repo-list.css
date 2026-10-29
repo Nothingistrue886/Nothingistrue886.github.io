@@ -24,10 +24,14 @@
     bottom: 0
 }
 
+.repo-list-item:first-child {
+    padding-top: 0;
+}
+
 .repo-list-item {
     position: relative;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 24px;
+    padding-bottom: 24px;
     list-style: none;
     border-bottom: 1px solid #eee
 }
