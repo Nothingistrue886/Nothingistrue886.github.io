@@ -1,4 +1,4 @@
-<h3>文章分类</h3>
+<h3 class="sidebar-title">文章分类</h3>
 <div id="blog-categories">
     <ul class="list-group">
         {% assign sorted_categories = site.categories | sort %}
@@ -10,12 +10,3 @@
         {% endfor %}
     </ul>
 </div>
-
-<script type="text/javascript">
-
-    $(document).ready(function () {
-        $("#blog-categories li").css('text-transform', 'capitalize')
-    });
-
-</script>
-

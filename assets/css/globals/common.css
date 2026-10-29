@@ -40,7 +40,7 @@
 .site-header {
     padding-top: 20px;
     padding-bottom: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 36px;
     border-bottom: 1px solid #eee
 }
 
@@ -152,6 +152,10 @@
     margin-left: 1.25rem;
     font-size: 1rem;
     color: #777
+}
+
+.site-header-nav-item:last-child {
+    padding-right: 0
 }
 
 .site-footer:after,.site-footer:before {

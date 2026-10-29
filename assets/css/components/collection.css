@@ -1,7 +1,7 @@
 .collection-head {
-    padding: 0.85rem 0;
-    margin-top: -20px;
-    margin-bottom: 24px;
+    padding: 0 0 1.25rem 0;
+    margin-top: -12px;
+    margin-bottom: 28px;
     background: #ffffff;
     border-bottom: 1px solid #eaecef;
     color: #57606a;
@@ -10,7 +10,7 @@
 }
 
 .collection-head.small {
-    padding: 0.85rem 0;
+    padding: 0 0 1.25rem 0;
 }
 
 .collection-head.small .collection-title {
@@ -18,10 +18,10 @@
 }
 
 .collection-head.small .collection-title h1.collection-header {
-    font-size: 20px;
+    font-size: 26px;
     font-weight: 600;
-    color: #24292f;
-    line-height: 1.4;
+    color: #1f2328;
+    line-height: 1.35;
 }
 
 .collection-head a {

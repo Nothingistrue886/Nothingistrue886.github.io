@@ -1,6 +1,6 @@
 #post-directory-module {
     z-index: 999;
-    width: 220px;
+    width: 100%;
 }
 
 .post-directory-title {
@@ -12,8 +12,8 @@
     background: transparent;
     overflow-x: hidden;
     overflow-y: auto;
-    width: 220px;
-    max-width: 220px;
+    width: 100%;
+    max-width: 235px;
     padding: 4px 0 1em 0;
     border: none;
     border-left: 2px solid #eaecef;
@@ -154,6 +154,7 @@
 }
 
 .list-group {
+    width: 100%;
     padding-left: 0;
     margin-bottom: 20px;
 }
@@ -161,8 +162,9 @@
 .list-group-item {
     position: relative;
     display: block;
-    padding: 10px 15px;
+    padding: 8px 12px;
     margin-bottom: -1px;
+    font-size: 13px;
     background-color: #fff;
     border: 1px solid #d0d7de;
 }
