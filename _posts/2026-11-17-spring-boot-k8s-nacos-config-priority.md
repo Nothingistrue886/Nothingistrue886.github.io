@@ -7,7 +7,7 @@ description: 梳理 CI 打包、Dockerfile、启动脚本、JAVA_OPTS、Nacos �
 keywords: Spring Boot, Nacos, Kubernetes, Docker, JAVA_OPTS, 配置优先级
 ---
 
-发版后发现开发环境一直在刷 MyBatis 的 SQL `DEBUG` 日志，明明在容器平台的启动参数里加了 `-Dlogging.level.root=info` 也没拦住；切环境时想在 `JAVA_OPTS` 里加 `-DSPRING_PROFILES_ACTIVE=prod` 改掉 Profile，重启后同样没反应。
+发版切环境时，想在容器平台的 `JAVA_OPTS` 里加 `-DSPRING_PROFILES_ACTIVE=prod` 改掉 Profile，重启后毫无反应（见第三节 1）；到了开发环境，控制台一直在刷 MyBatis 的 SQL `DEBUG` 日志，明明在启动参数里加了 `-Dlogging.level.root=info` 也没拦住（见第四节 2）。
 
 顺着这两个现象往下查，把 CI 打包、`Dockerfile`、启动脚本、容器环境变量、JVM `JAVA_OPTS`、Nacos 和 `application.yml` 的生效顺序完整捋了一遍。
 
@@ -130,6 +130,8 @@ java -Xmx1g -XX:+UseG1GC -Dserver.port=8081 -jar app.jar --server.port=8082
 2. **属性源优先级阶段（被第 1 名覆盖）**：
    替换完成后，这个 `prod` 只是**第 6 名**（`application.yml`）给出的值。但启动脚本 `entrypoint.sh` 末尾还挂着**第 1 名**（`--spring.profiles.active=dev`）。第 1 名直接覆盖第 6 名，最终激活的仍然是 `dev`。
 
+- **解决办法**：不要在 `JAVA_OPTS` 里加 `-DSPRING_PROFILES_ACTIVE`。正道是构建并部署对应环境的 `prod` 镜像；如果临时必须在容器平台切换环境，应该去容器环境变量 `env:` 里覆盖启动脚本读取的 `app_profile: prod`，让第 1 名 `--spring.profiles.active=$app_profile` 本身变成 `prod`。
+
 ## 2. 为什么 `-DNACOS_SERVER_ADDR` 和 `-DNACOS_NAMESPACE` 能生效？
 
 看一眼 `application-prod.yml`（第 5 名）里的写法 [3]：
@@ -198,6 +200,7 @@ root (被 -D 设为 INFO)
 - `-Dlogging.level.root=info` 只管最顶层的 `root`，管不住下面单独配置了 `DEBUG` 的业务包或 Mapper 包。
 - 哪怕 Nacos 里没有写任何 `logging.level` 配置，由于**按 Key 穿透**，底层 `application.yml` 里遗留的 `com.example.order: DEBUG` 仍然会穿透生效。
 - 另外，如果项目重构改过包名（比如从 `com.old.app` 迁到了 `com.example.order`），以前留在 `JAVA_OPTS` 里的 `-Dlogging.level.com.old.app=DEBUG` 就不再匹配任何类了。
+- **解决办法**：删掉主配置 `application.yml` 里写死的业务包 `DEBUG` 配置（挪到 `application-local.yml`），并在 Nacos 里显式把对应业务包或 Mapper 包设为 `INFO`（如 `logging.level.com.example.order.mapper: INFO`）。
 
 ## 3. 为什么别在 `JAVA_OPTS` 里放业务 `-D` 或 `-Dlogging`？
 
